@@ -3,6 +3,7 @@
     namespace App;
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Support\Facades\Auth;
 
     class OrderRequest extends Model
     {
@@ -16,8 +17,13 @@
 
         public function setInWork()
         {
+            if($this->contractor_id!=Auth::user()->id){
+                return false;
+            }
+
             $this->status_id = 2;
             $this->save();
+            return true;
         }
 
         public static function getItem($id)

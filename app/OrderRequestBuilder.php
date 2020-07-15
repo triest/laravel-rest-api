@@ -74,7 +74,7 @@
                 return "contracter  is not correct";
             }
 
-            $order->status_id = 1;
+            $order->status_id = $this->status_id;
             $order->save();
 
             $orderRequwest = new OrderRequest();

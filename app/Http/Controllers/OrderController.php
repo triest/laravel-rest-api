@@ -139,8 +139,14 @@
                 return \response()->json(["wrong id"]);
             }
 
-            $orderRequwest->setInWork();
-            return response()->json($orderRequwest);
+
+
+             if($orderRequwest->setInWork()){
+                 return response()->json($orderRequwest);
+             }else{
+                 return \response()->json(["is not you order"]);
+             }
+
         }
 
     }
