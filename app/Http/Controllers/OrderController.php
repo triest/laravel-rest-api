@@ -4,6 +4,7 @@
 
     use App\Order;
     use App\OrderBuilder;
+    use App\OrderRequest;
     use App\OrderRequestBuilder;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -85,23 +86,15 @@
 
         }
 
+        public function cancalOrderRequwest(Request $request, $id)
+        {
+            $orderRequwest = OrderRequest::getItem($id);
+            if ($orderRequwest == null) {
+                return \response()->json(["wrong id"]);
+            }
+
+            $orderRequwest->cancel();
+            return \response()->json([$orderRequwest]);
+        }
+
     }
-
-
-
-
-    /*
-     *     return \response()->json([
-                    "anket" => $user,
-                    "targets" => $targets,
-                    "selectedTargets" => $targets_array,
-                    "interests" => $interests,
-                    "selectedInterest" => $interest_array,
-                    "apperance" => null,
-                    "relations" => null,
-                    "chidren" => null,
-                    "sechSettings" => $seachSettingsArray,
-                    "smoking" => null,
-
-            ]);
-     * */

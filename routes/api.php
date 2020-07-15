@@ -53,8 +53,13 @@
                 //create Order
                 Route::post('/order','OrderController@createOrder');
 
+
+                Route::put('/order-requwest/{id}/cancel','OrderController@cancalOrderRequwest');
                 // создание заявки на заказ
                 Route::post('/order-requwest','OrderController@createOrderRequwest');
+
+
+
                 Route::put('/order/mark-completed/{id}','OrderController@markCompleted');
             }
     );
