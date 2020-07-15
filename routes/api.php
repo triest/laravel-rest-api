@@ -54,6 +54,9 @@
 
                 //create Order
                 Route::post('/order','OrderController@createOrder');
+
+                // создание заявки на заказ
+                Route::post('/order-requwest','OrderController@createOrderRequwest');
             }
     );
 
