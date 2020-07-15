@@ -32,15 +32,18 @@
         return $request->user();
     });
 
+
     Route::middleware('auth:api')->prefix('api')->group(
             function () {
                 Route::get('/',function (){
                     return response()->json(["tst"=>"test"]);
                 });
+
             }
     );
 
-    Route::middleware('auth:api')->prefix('api')->group(
+
+    Route::middleware('auth:api')->group(
             function () {
                 Route::get('/',function (){
                     return response()->json(["tst"=>"test"]);
@@ -48,6 +51,9 @@
                 Route::get('/test',function (){
                     return response()->json(["tst"=>"test"]);
                 });
+
+                //create Order
+                Route::post('/order','OrderController@createOrder');
             }
     );
 
