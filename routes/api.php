@@ -48,15 +48,14 @@
                 Route::get('/',function (){
                     return response()->json(["tst"=>"test"]);
                 });
-                Route::get('/test',function (){
-                    return response()->json(["tst"=>"test"]);
-                });
+
 
                 //create Order
                 Route::post('/order','OrderController@createOrder');
 
                 // создание заявки на заказ
                 Route::post('/order-requwest','OrderController@createOrderRequwest');
+                Route::put('/order/mark-completed/{id}','OrderController@markCompleted');
             }
     );
 

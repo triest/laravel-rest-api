@@ -21,9 +21,9 @@
             $orderBuilder->setComplited($request->complited);
             $item = $orderBuilder->createItem();
             if ($item != null) {
-                return \response()->json([$item]);
+                return response()->json([$item]);
             } else {
-                return \response()->json([$orderBuilder]);
+                return response()->json([$orderBuilder]);
             }
 
         }
@@ -33,17 +33,17 @@
             if (isset($request->order_id)) {
                 $order_id = $request->order_id;
             } else {
-                return \response(500)->json(["not order_id"]);
+                return response(500)->json(["not order_id"]);
             }
 
             $user = Auth::user();
             if ($user == null) {
-                return \response(500)->json(["not auth"]);
+                return response(500)->json(["not auth"]);
             }
 
             $order = Order::getItem($order_id);
             if ($order == null) {
-                return \response(500)->json(["order not found"]);
+                return response(500)->json(["order not found"]);
             }
 
             $orderRequwestBuilder = new OrderRequestBuilder();
@@ -54,10 +54,39 @@
 
             $item = $orderRequwestBuilder->createItem();
 
-            return $item;
+            return \response()->json([$item]);
 
         }
+
+        public function markCompleted(Request $request, $id)
+        {
+
+
+            $order_id = intval($id);
+
+            if ($order_id == false) {
+                return \response()->json(["wrong id"]);
+            }
+
+            $user = Auth::user();
+            if ($user == null) {
+                return \response()->json(["not auth"]);
+            }
+
+
+            $order = Order::getItem($order_id);
+            if ($order == null) {
+                return \response();
+            }
+
+            $order->markCompleted();
+
+            return \response()->json([$order]);;
+
+        }
+
     }
+
 
 
 
