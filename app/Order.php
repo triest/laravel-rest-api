@@ -15,7 +15,7 @@
 
         public function requwest()
         {
-            return $this->belongsTo("App\OrderRequest");
+            return $this->hasOne("App\OrderRequest",'order_id','id');
         }
 
         public function markCompleted()
@@ -24,6 +24,7 @@
 
             $this->save();
             $orderRequwest = $this->requwest()->first();
+
 
             if ($orderRequwest != null) {
                 $orderRequwest->setCompleted();

@@ -3,6 +3,7 @@
     namespace App;
 
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Support\Facades\Auth;
 
     class OrderRequestBuilder extends Model
     {
@@ -47,11 +48,21 @@
             }
 
             $order = Order::getItem($this->order_id);
+
             if ($order == null) {
                 return "order is not correct";
             }
 
-            $this->status_id = 2;
+            $user=Auth::user();
+            if($user==null){
+                return "not auth";
+            }
+
+            if($user->id==$order->customer_id){
+                return "false";
+            }
+
+            $this->status_id = 1;
 
             if ($order == null) {
                 return "order status  is not correct";
@@ -63,7 +74,7 @@
                 return "contracter  is not correct";
             }
 
-            $order->status_id = 2;
+            $order->status_id = 1;
             $order->save();
 
             $orderRequwest = new OrderRequest();

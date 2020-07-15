@@ -45,4 +45,9 @@
         {
             return User::select(['*'])->where('id', $id)->first();
         }
+
+        public function get_orders()
+        {
+            return OrderRequest::select(['*'])->where('contractor_id', $this->id)->get();
+        }
     }

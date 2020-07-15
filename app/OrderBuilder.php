@@ -58,6 +58,12 @@
             }
 
             $order = new Order();
+            $user=Auth::user();
+            if($user==null){
+                return "not auth";
+            }
+            $order->customer_id=$user->id;
+
             $order->title = $this->title;
             $order->description = $this->description;
             $order->status_id = 1;

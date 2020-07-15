@@ -6,6 +6,7 @@
     use App\OrderBuilder;
     use App\OrderRequest;
     use App\OrderRequestBuilder;
+    use App\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,12 @@
                 return response(500)->json(["not order_id"]);
             }
 
-            $user = Auth::user();
+            if (isset($request->user_id)) {
+                $user = User::getItem(intval($request->user_id));
+            } else {
+                $user = Auth::user();
+            }
+
             if ($user == null) {
                 return response(500)->json(["not auth"]);
             }
@@ -45,6 +51,13 @@
             $order = Order::getItem($order_id);
             if ($order == null) {
                 return response(500)->json(["order not found"]);
+            }
+
+            $orderRequwest = $order->requwest()->first();
+            //  dump($orderRequwest);
+            //  die("s");
+            if ($orderRequwest != null) {
+                return response()->json(["order requwest alredy set"]);
             }
 
             $orderRequwestBuilder = new OrderRequestBuilder();
@@ -75,9 +88,11 @@
             }
 
 
+
             $order = Order::getItem($order_id);
+
             if ($order == null) {
-                return \response();
+                return \response()->json("order noy dount");
             }
 
             $order->markCompleted();
@@ -93,8 +108,39 @@
                 return \response()->json(["wrong id"]);
             }
 
-            $orderRequwest->cancel();
+             $rezult=$orderRequwest->cancel();
+
             return \response()->json([$orderRequwest]);
+        }
+
+        public function getOrders(Request $request)
+        {
+            $ordersp = Order::select('*')->get();
+            return response()->json($ordersp);
+        }
+
+        public function getMyOrderRequwest(Request $request)
+        {
+            $user = Auth::user();
+            if ($user == null) {
+                return \response()->json(["not auth"]);
+            }
+
+            $orderRequwest = $user->get_orders();
+            return response()->json($orderRequwest);
+        }
+
+        public function acceptOrder(Request $request)
+        {
+
+            $id = $request->order_id;
+            $orderRequwest = OrderRequest::getItem(intval($id));
+            if ($orderRequwest == null) {
+                return \response()->json(["wrong id"]);
+            }
+
+            $orderRequwest->setInWork();
+            return response()->json($orderRequwest);
         }
 
     }
