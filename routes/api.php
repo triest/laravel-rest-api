@@ -55,7 +55,7 @@
                 Route::get('/orders','OrderController@getOrders');
 
 
-                Route::put('/order-requwest/{id}/cancel','OrderController@cancalOrderRequwest');
+                Route::put('/order-requwest/{id}/cancel','OrderController@cancelOrderRequwest');
 
                 // создание заявки на заказ
                 Route::post('/order-requwest','OrderController@createOrderRequwest');

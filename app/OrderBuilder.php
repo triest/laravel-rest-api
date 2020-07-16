@@ -9,13 +9,23 @@
     class OrderBuilder extends Model
     {
         //
-        private $satus;
+        private $satus = null;
 
-        private $title;
+        private $title = null;
 
-        private $description;
+        private $description = null;
 
-        private $complited;
+        private $complited = null;
+
+        private $intermediary_percentage=null;
+
+        /**
+         * @param null $intermediary_percentage
+         */
+        public function setIntermediaryPercentage($intermediary_percentage): void
+        {
+            $this->intermediary_percentage = $intermediary_percentage;
+        }
 
 
         /**
@@ -54,25 +64,29 @@
         public function createItem()
         {
 
-            if ($this->title == null || $this->description == null) {
+            if ($this->title == null) {
                 return null;
             }
 
             $order = new Order();
-            $user=Auth::user();
-            if($user==null){
+            $user = Auth::user();
+            if ($user == null) {
                 return "not auth";
             }
-            $order->customer_id=$user->id;
+            $order->customer_id = $user->id;
 
             $order->title = $this->title;
             $order->description = $this->description;
             $order->status_id = 1;
-            if (DateTime::createFromFormat('Y-m-d', $this->complited) === FALSE) {
+
+            $order->intermediary_percentage=$this->intermediary_percentage;
+
+            if ($this->complited != null && DateTime::createFromFormat('Y-m-d', $this->complited) === false) {
                 return "wrong date format";
             }
 
-            $order->completed=$this->complited;
+
+            $order->completed = $this->complited;
             $order->save();
             return $order;
         }

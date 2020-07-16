@@ -9,6 +9,7 @@
     use App\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Response;
 
     class OrderController extends Controller
     {
@@ -17,18 +18,37 @@
         public function createOrder(Request $request)
         {
             if (!isset($request->title)) {
-                return response()->setStatusCode(400)->json(["not order title"]);
+                return Response::json(["not order title"], 400);
             }
 
             $orderBuilder = new OrderBuilder();
             $orderBuilder->setTitle($request->title);
-            $orderBuilder->setDescription($request->description);
-            $orderBuilder->setComplited($request->complited);
+            if (isset($request->description)) {
+                $orderBuilder->setDescription($request->description);
+            }
+            if (isset($request->complited)) {
+                $orderBuilder->setComplited($request->complited);
+            }
+
+
+            if (isset($request->intermediary_percentage)) {
+
+                $percent = intval($request->intermediary_percentage);
+
+                if ($percent == false || $percent > 100) {
+                    return Response::json(["not correct percent"], 400);
+                }
+
+
+                $orderBuilder->setIntermediaryPercentage($request->intermediary_percentage);
+            }
+
             $item = $orderBuilder->createItem();
+
             if ($item != null) {
-                return response()->json([$item]);
+                return Response::json([$item], 201);
             } else {
-                return response()->json([$orderBuilder]);
+                return Response::json([$orderBuilder], 400);
             }
 
         }
@@ -38,28 +58,30 @@
             if (isset($request->order_id)) {
                 $order_id = $request->order_id;
             } else {
-                return response(400)->json(["not order_id"]);
+                return Response::json(["not order_id"], 400);
             }
 
             if (isset($request->user_id)) {
+
                 $user = User::getItem(intval($request->user_id));
             } else {
                 $user = Auth::user();
             }
 
             if ($user == null) {
-                return response(400)->json(["not auth"]);
+                return Response::json(["not auth"], 403);
             }
 
             $order = Order::getItem($order_id);
             if ($order == null) {
-                return response(400)->json(["order not found"]);
+                return Response::json(["order not found"], 422);
+
             }
 
             $orderRequwest = $order->requwest()->first();
 
             if ($orderRequwest != null) {
-                return response(400)->json(["order request already set"]);
+                return Response::json(["order request already set"], 422);
             }
 
             $orderRequwestBuilder = new OrderRequestBuilder();
@@ -76,24 +98,22 @@
 
         public function markCompleted(Request $request, $id)
         {
-
-
             $order_id = intval($id);
-
-            if ($order_id == false) {
-                return \response(400)->json(["wrong id"]);
-            }
-
             $user = Auth::user();
             if ($user == null) {
-                return \response(400)->json(["not auth"]);
+                return Response::json(["not auth"], 403);
+            }
+
+
+            if ($order_id == false) {
+                return Response::json(["wrong id"], 422);
             }
 
 
             $order = Order::getItem($order_id);
 
             if ($order == null) {
-                return \response()->json("order not found");
+                return Response::json(["order not found"], 422);
             }
 
             $order->markCompleted();
@@ -102,14 +122,18 @@
 
         }
 
-        public function cancalOrderRequwest(Request $request, $id)
+        public function cancelOrderRequwest(Request $request, $id)
         {
-            $orderRequwest = OrderRequest::getItem($id);
-            if ($orderRequwest == null) {
-                return \response()->json(["wrong id"]);
+            $order_id = intval($id);
+            if ($order_id == false) {
+                return Response::json(["wrong id"], 422);
             }
 
-            $rezult = $orderRequwest->cancel();
+            $orderRequwest = OrderRequest::getItem($id);
+            if ($orderRequwest == null) {
+                return Response::json(["wrong id"], 422);
+            }
+
 
             return \response()->json([$orderRequwest]);
         }
@@ -124,7 +148,7 @@
         {
             $user = Auth::user();
             if ($user == null) {
-                return \response()->json(["not auth"]);
+                return Response::json(["not auth"], 403);
             }
 
             $orderRequwest = $user->get_orders();
