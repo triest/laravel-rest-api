@@ -35,7 +35,7 @@
 
                 $percent = intval($request->intermediary_percentage);
 
-                if ($percent == false || $percent > 100) {
+                if ($percent == false || $percent > 100 || $percent<0) {
                     return Response::json(["not correct percent"], 400);
                 }
 

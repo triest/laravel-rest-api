@@ -4,8 +4,6 @@
     <list default="true" id="2944f139-3a16-4d34-82ec-54eb958d00db" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/OrderBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/OrderBuilder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,11 +29,20 @@
       <file leaf-file-name="OrderController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="42" column="57" selection-start-line="42" selection-start-column="57" selection-end-line="42" selection-end-column="57" />
+            <state relative-caret-position="629">
+              <caret line="37" column="59" lean-forward="true" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
               <folding>
                 <element signature="e#48#62#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2020_07_16_093359_add_intermediary_percentage_to_order.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_16_093359_add_intermediary_percentage_to_order.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="17" column="65" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -400,7 +407,7 @@
       <updated>1594749411912</updated>
       <workItem from="1594749413531" duration="6450000" />
       <workItem from="1594796926724" duration="20940000" />
-      <workItem from="1594887026827" duration="5261000" />
+      <workItem from="1594887026827" duration="5438000" />
     </task>
     <task id="LOCAL-00001" summary="Create order">
       <created>1594819754126</created>
@@ -458,11 +465,18 @@
       <option name="project" value="LOCAL" />
       <updated>1594887342948</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add percent">
+      <created>1594892748753</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1594892748753</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32651000" />
+    <option name="totallyTimeSpent" value="32828000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -530,7 +544,8 @@
     <MESSAGE value="Add check duble requwest ot otder" />
     <MESSAGE value="Fix readme and logik for cancel." />
     <MESSAGE value="Fix readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix readme" />
+    <MESSAGE value="Add percent" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add percent" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/routes/api.php">
@@ -842,13 +857,6 @@
     <entry file="file://$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_16_093359_add_intermediary_percentage_to_order.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="65" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_15_120928_create_orders_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -873,10 +881,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_07_16_093359_add_intermediary_percentage_to_order.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="65" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OrderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="42" column="57" selection-start-line="42" selection-start-column="57" selection-end-line="42" selection-end-column="57" />
+        <state relative-caret-position="629">
+          <caret line="37" column="59" lean-forward="true" selection-start-line="37" selection-start-column="59" selection-end-line="37" selection-end-column="59" />
           <folding>
             <element signature="e#48#62#0#PHP" expanded="true" />
           </folding>
