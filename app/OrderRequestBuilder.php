@@ -64,14 +64,10 @@
 
             $this->status_id = 1;
 
-            if ($order == null) {
-                return "order status  is not correct";
-            }
-
 
             $contracter = User::getItem($this->contractor_id);
             if ($contracter == null) {
-                return "contracter  is not correct";
+                return "contractor  is not correct";
             }
 
             $order->status_id = $this->status_id;

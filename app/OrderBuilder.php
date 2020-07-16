@@ -4,6 +4,7 @@
 
     use DateTime;
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Support\Facades\Auth;
 
     class OrderBuilder extends Model
     {
